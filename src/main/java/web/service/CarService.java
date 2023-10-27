@@ -6,6 +6,7 @@ import web.dao.CarDAO;
 import web.model.Car;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -16,11 +17,7 @@ public class CarService {
         this.carDAO = carDAO;
     }
 
-    public List<Car> createCarList(int num) {
-        return carDAO.createCarList(num);
-    }
-
-    public List<Car> getNumCars(List<Car> cars, int num) {
-        return carDAO.getNumCars(cars, num);
+    public List<Car> getNumCars(int num) {
+        return carDAO.getCars().stream().limit(num).collect(Collectors.toList());
     }
 }
