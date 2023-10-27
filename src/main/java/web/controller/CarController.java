@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class CarController {
 
-    CarService service;
+    private final CarService service;
 
     @Autowired
     public CarController(CarService service) {
@@ -23,8 +23,7 @@ public class CarController {
 
     @GetMapping(value = "/cars")
     public String printCars(ModelMap model, @RequestParam(value = "count", defaultValue = "5") int count) {
-        List<Car> cars = Collections.nCopies(5, new Car("egor", "bmw", "a123bc"));
-        model.addAttribute("cars", service.getNumCars(cars, count));
+        model.addAttribute("cars", service.getNumCars(service.createCarList(5), count));
         return "cars";
     }
 }
